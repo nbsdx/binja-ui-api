@@ -5,7 +5,14 @@ Handful of APIs to mess with Binary Ninja's UI (Qt5).
 
 ##**YOU MUST HAVE PyQt5 INSTALLED TO USE THIS API**
 
-### Examples:
+THIS HAS ONLY BEEN TESTED ON **UBUNTU 16.06** USING **PyQt5 FROM THE OFFICIAL REPOS**
+USE AT YOUR OWN RISK
+
+# How to use
+
+Drop the "BinjaUI" folder into your plugins director
+
+# Examples:
 
 Add a new Menu tree to a 'Plugins' menu.
 
