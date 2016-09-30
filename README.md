@@ -3,6 +3,8 @@ Set of API calls to interact with the Binary Ninja UI
 
 Handful of APIs to mess with Binary Ninja's UI (Qt5). 
 
+##**YOU MUST HAVE PyQt5 INSTALLED TO USE THIS API**
+
 ### Examples:
 
 Add a new Menu tree to a 'Plugins' menu.
@@ -27,6 +29,8 @@ ui.Util.AddMenuTree( {
 Create a new tab (next to the XRefs tab)
 ```python
 import BinjaUI as ui
+from PyQt5 import QtWidgets, QtGui, QtCore
+from PyQt5.QtCore import Qt
 
 def injectTab():
   """
