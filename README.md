@@ -10,7 +10,8 @@ USE AT YOUR OWN RISK
 
 # How to use
 
-Drop the "BinjaUI" folder into your plugins director
+Drop the "BinjaUI" folder into your plugins directory. 
+This repo comes with a test plugin that you can refer to.
 
 # Examples:
 
@@ -18,6 +19,7 @@ Add a new Menu tree to a 'Plugins' menu.
 
 ```python
 import BinjaUI as ui
+from BinjaUI import Util
 
 def foo():
   print "foo"
@@ -36,6 +38,8 @@ ui.Util.AddMenuTree( {
 Create a new tab (next to the XRefs tab)
 ```python
 import BinjaUI as ui
+from BinjaUI import Util, Components
+
 from PyQt5 import QtWidgets, QtGui, QtCore
 from PyQt5.QtCore import Qt
 
@@ -65,4 +69,4 @@ def injectTab():
   injector.inject()
 
 # Could also be bn.PluginCommand.... if you need the current view
-Util.AddMenuTree( {"Add New Tab" : injectTab} )
+ui.Util.AddMenuTree( {"Add New Tab" : injectTab} )
