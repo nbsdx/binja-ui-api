@@ -43,3 +43,53 @@ def AddMenuTree(tree, menu=None):
         else:
             m = menu.addMenu(x)
             AddMenuTree(tree[x], m)
+
+"""
+    Get the font that's being used for Binja.
+    THIS IS SLOW.
+"""
+def GetFont():
+    from . import _app
+    return [x for x in _app().allWidgets() if x.metaObject().className() == 'FunctionList'][0].font()
+
+
+_filters = {}
+
+class Filter(QtCore.QObject):
+    def __init__(self, parent = None):
+        QtCore.QObject.__init__(self, parent)
+        self.filters = []
+
+    def addFilter(self, f):
+        self.filters.append(f)
+
+    def eventFilter(self, obj, evt):
+        for filter_ in self.filters:
+            if filter_(obj, evt):
+                return True
+
+        return False
+
+"""
+
+    Installs an event filter on an object, just needs
+    a function like so:
+
+    def myFuncFilter(obj, evt):
+        # ...
+        return True/False
+    returns True if it consumed the event, and no other
+    filters should process the event, and False if the
+    event can continue to be processed.
+"""
+
+def InstallEventFilterOnObject(obj, evtFilter):
+    if obj in _filters:
+        _filters[obj].addFilter(evtFilter)
+    else:
+        _filters[obj] = Filter()
+        _filters[obj].addFilter(evtFilter)
+        obj.installEventFilter(_filters[obj])
+
+
+
