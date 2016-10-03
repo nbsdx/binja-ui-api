@@ -53,7 +53,7 @@ def GetFont():
     return [x for x in _app().allWidgets() if x.metaObject().className() == 'FunctionList'][0].font()
 
 
-_filters = {}
+#_filters = {}
 
 class Filter(QtCore.QObject):
     def __init__(self, parent = None):
@@ -83,14 +83,18 @@ class Filter(QtCore.QObject):
     event can continue to be processed.
 """
 
-def InstallEventFilterOnObject(obj, evtFilter):
-    if obj in _filters:
-        _filters[obj].addFilter(evtFilter)
-    else:
-        _filters[obj] = Filter(obj)
-        _filters[obj].setParent(obj)
-        _filters[obj].addFilter(evtFilter)
-        obj.installEventFilter(_filters[obj])
+class EventFilterManager:
+    _filters = {}
+
+    @classmethod
+    def InstallOnObject(cls, obj, evtFilter):
+        if obj in cls._filters:
+            cls._filters[obj].addFilter(evtFilter)
+        else:
+            cls._filters[obj] = Filter(obj)
+            cls._filters[obj].setParent(obj)
+            cls._filters[obj].addFilter(evtFilter)
+            obj.installEventFilter(cls._filters[obj])
 
 
 
