@@ -87,7 +87,8 @@ def InstallEventFilterOnObject(obj, evtFilter):
     if obj in _filters:
         _filters[obj].addFilter(evtFilter)
     else:
-        _filters[obj] = Filter()
+        _filters[obj] = Filter(obj)
+        _filters[obj].setParent(obj)
         _filters[obj].addFilter(evtFilter)
         obj.installEventFilter(_filters[obj])
 
